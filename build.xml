@@ -1,0 +1,84 @@
+<!--===========================================================-->
+<!-- build.xml - Ant build file                               =-->
+<!--===========================================================-->
+<project name="joda-example" basedir="." default="all">
+
+  <!--=========================================================-->
+  <!-- Set global properties                                   -->
+  <!--=========================================================-->
+  <property name="src.dir" value="${basedir}/src"/>
+  <property name="test.src.dir" value="${basedir}/testsrc"/>
+  <property name="target.dir" value="${basedir}/target"/>
+  <property name="target.classes.dir" value="${target.dir}/classes"/>
+  <property name="lib.dir" value="${basedir}/lib"/>
+  <property name="conf.dir" value="${basedir}/conf"/>
+	
+  <!--=========================================================-->
+  <!-- Set some general path information that will be used     -->
+  <!-- repeatedly in this build file. This information will be -->
+  <!-- referenced by the id attribute.                         -->
+  <!--=========================================================-->
+  <path id="compile.class.path">
+  	<fileset dir="${lib.dir}">
+  		<include name="*.jar"/>
+  	</fileset>
+  </path>
+
+  <!--=========================================================-->
+  <!-- TARGET: all                                             -->
+  <!--=========================================================-->
+
+  <target name="all" depends="compile"/>
+
+  <!--=========================================================-->
+  <!-- TARGET: init                                            -->
+  <!--=========================================================-->
+  <target name="init">
+    <!--=======================================================-->
+    <!-- create the time stamp                                 -->
+    <!--=======================================================-->
+    <tstamp>
+      <format property="build.start.time" pattern="MM/dd/yyyy hh:mm:ss aa"/>
+    </tstamp>
+    <echo message="Build started at ${build.start.time}..."/>
+
+    <mkdir dir="${target.dir}"/>
+
+  </target>
+
+  <!--=========================================================-->
+  <!-- TARGET: compile                                         -->
+  <!--=========================================================-->
+  <target name="compile" depends="init">
+    <javac classpathref="compile.class.path" 
+           destdir="${target.classes.dir}"
+           srcdir="${src.dir}"
+    	     debug="yes">
+      <include name="**/*.java"/>
+    </javac>
+  	<copy todir="${target.classes.dir}">
+      <fileset dir="${conf.dir}">
+      	<include name="log4j.properties"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <!--=========================================================-->
+  <!-- TARGET: clean                                           -->
+  <!--=========================================================-->
+  <target name="clean">
+    <!--=======================================================-->
+    <!-- Remove all derived files from all subdirectories      -->
+    <!-- beginning with ${project.root} and recursing in.      -->
+    <!--=======================================================-->
+    <delete>
+      <fileset dir="${target.dir}" defaultexcludes="no">
+      </fileset>
+      <fileset dir="${basedir}" defaultexcludes="no">
+      	<include name="mbean.dtd"/>
+      </fileset>
+    </delete>
+  </target>
+
+</project>
+
