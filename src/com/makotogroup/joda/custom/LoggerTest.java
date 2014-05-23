@@ -1,7 +1,6 @@
 package com.makotogroup.joda.custom;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 public class LoggerTest {
   private  Logger log=Logger.getLogger(getClass());
