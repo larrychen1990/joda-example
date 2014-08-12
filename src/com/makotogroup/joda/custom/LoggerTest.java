@@ -2,8 +2,11 @@ package com.makotogroup.joda.custom;
 
 import org.apache.log4j.Logger;
 
+import sun.rmi.runtime.Log;
+
 public class LoggerTest {
-  private  Logger log=Logger.getLogger(getClass());
+  private  static Logger log=Logger.getLogger(Log.class.getName());
+//      Logger.getLogger(getClass());
   
   public static void main(String[] args) {
     LoggerTest t=new LoggerTest();
