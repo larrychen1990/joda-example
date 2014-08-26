@@ -40,6 +40,7 @@ public class JodaTest {
   }
 
   public static Days daysToNewYear(LocalDate fromDate) {
+    //next year's first day
     LocalDate newYear = fromDate.plusYears(1).withDayOfYear(1);
     return Days.daysBetween(fromDate, newYear);
   }
